@@ -25,6 +25,7 @@ function RouteComponent() {
       email,
       password,
       name,
+      callbackURL: 'http://localhost:3001/'
     }, {
       onRequest: (ctx) => {
         //show loading

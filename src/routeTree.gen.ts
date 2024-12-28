@@ -16,6 +16,8 @@ import { Route as SignoutImport } from './routes/signout'
 import { Route as SigninImport } from './routes/signin'
 import { Route as AboutImport } from './routes/about'
 import { Route as IndexImport } from './routes/index'
+import { Route as SessionsTwoFactorAppImport } from './routes/sessions/two-factor/app'
+import { Route as SettingsSecurityTwoFactorIndexImport } from './routes/settings/security/two-factor/index'
 
 // Create/Update Routes
 
@@ -48,6 +50,19 @@ const IndexRoute = IndexImport.update({
   path: '/',
   getParentRoute: () => rootRoute,
 } as any)
+
+const SessionsTwoFactorAppRoute = SessionsTwoFactorAppImport.update({
+  id: '/sessions/two-factor/app',
+  path: '/sessions/two-factor/app',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const SettingsSecurityTwoFactorIndexRoute =
+  SettingsSecurityTwoFactorIndexImport.update({
+    id: '/settings/security/two-factor/',
+    path: '/settings/security/two-factor/',
+    getParentRoute: () => rootRoute,
+  } as any)
 
 // Populate the FileRoutesByPath interface
 
@@ -88,6 +103,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SignupImport
       parentRoute: typeof rootRoute
     }
+    '/sessions/two-factor/app': {
+      id: '/sessions/two-factor/app'
+      path: '/sessions/two-factor/app'
+      fullPath: '/sessions/two-factor/app'
+      preLoaderRoute: typeof SessionsTwoFactorAppImport
+      parentRoute: typeof rootRoute
+    }
+    '/settings/security/two-factor/': {
+      id: '/settings/security/two-factor/'
+      path: '/settings/security/two-factor'
+      fullPath: '/settings/security/two-factor'
+      preLoaderRoute: typeof SettingsSecurityTwoFactorIndexImport
+      parentRoute: typeof rootRoute
+    }
   }
 }
 
@@ -99,6 +128,8 @@ export interface FileRoutesByFullPath {
   '/signin': typeof SigninRoute
   '/signout': typeof SignoutRoute
   '/signup': typeof SignupRoute
+  '/sessions/two-factor/app': typeof SessionsTwoFactorAppRoute
+  '/settings/security/two-factor': typeof SettingsSecurityTwoFactorIndexRoute
 }
 
 export interface FileRoutesByTo {
@@ -107,6 +138,8 @@ export interface FileRoutesByTo {
   '/signin': typeof SigninRoute
   '/signout': typeof SignoutRoute
   '/signup': typeof SignupRoute
+  '/sessions/two-factor/app': typeof SessionsTwoFactorAppRoute
+  '/settings/security/two-factor': typeof SettingsSecurityTwoFactorIndexRoute
 }
 
 export interface FileRoutesById {
@@ -116,14 +149,38 @@ export interface FileRoutesById {
   '/signin': typeof SigninRoute
   '/signout': typeof SignoutRoute
   '/signup': typeof SignupRoute
+  '/sessions/two-factor/app': typeof SessionsTwoFactorAppRoute
+  '/settings/security/two-factor/': typeof SettingsSecurityTwoFactorIndexRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/about' | '/signin' | '/signout' | '/signup'
+  fullPaths:
+    | '/'
+    | '/about'
+    | '/signin'
+    | '/signout'
+    | '/signup'
+    | '/sessions/two-factor/app'
+    | '/settings/security/two-factor'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/about' | '/signin' | '/signout' | '/signup'
-  id: '__root__' | '/' | '/about' | '/signin' | '/signout' | '/signup'
+  to:
+    | '/'
+    | '/about'
+    | '/signin'
+    | '/signout'
+    | '/signup'
+    | '/sessions/two-factor/app'
+    | '/settings/security/two-factor'
+  id:
+    | '__root__'
+    | '/'
+    | '/about'
+    | '/signin'
+    | '/signout'
+    | '/signup'
+    | '/sessions/two-factor/app'
+    | '/settings/security/two-factor/'
   fileRoutesById: FileRoutesById
 }
 
@@ -133,6 +190,8 @@ export interface RootRouteChildren {
   SigninRoute: typeof SigninRoute
   SignoutRoute: typeof SignoutRoute
   SignupRoute: typeof SignupRoute
+  SessionsTwoFactorAppRoute: typeof SessionsTwoFactorAppRoute
+  SettingsSecurityTwoFactorIndexRoute: typeof SettingsSecurityTwoFactorIndexRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
@@ -141,6 +200,8 @@ const rootRouteChildren: RootRouteChildren = {
   SigninRoute: SigninRoute,
   SignoutRoute: SignoutRoute,
   SignupRoute: SignupRoute,
+  SessionsTwoFactorAppRoute: SessionsTwoFactorAppRoute,
+  SettingsSecurityTwoFactorIndexRoute: SettingsSecurityTwoFactorIndexRoute,
 }
 
 export const routeTree = rootRoute
@@ -157,7 +218,9 @@ export const routeTree = rootRoute
         "/about",
         "/signin",
         "/signout",
-        "/signup"
+        "/signup",
+        "/sessions/two-factor/app",
+        "/settings/security/two-factor/"
       ]
     },
     "/": {
@@ -174,6 +237,12 @@ export const routeTree = rootRoute
     },
     "/signup": {
       "filePath": "signup.tsx"
+    },
+    "/sessions/two-factor/app": {
+      "filePath": "sessions/two-factor/app.tsx"
+    },
+    "/settings/security/two-factor/": {
+      "filePath": "settings/security/two-factor/index.tsx"
     }
   }
 }
