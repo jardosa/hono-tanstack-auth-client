@@ -4,9 +4,15 @@ import { authClient } from "../../../lib/auth-client";
 
 export const Route = createFileRoute("/sessions/two-factor/app")({
   component: RouteComponent,
+  validateSearch: (search: Record<string, unknown>) => {
+    return {
+      redirect: search.redirect ?? "",
+    };
+  },
 });
 
 function RouteComponent() {
+  const searchParams = Route.useSearch();
   const [code, setCode] = useState("");
   const [error, setError] = useState(false);
 
@@ -16,7 +22,7 @@ function RouteComponent() {
       { code },
       {
         onSuccess: () => {
-          window.location.href = "/";
+          window.location.href = `http://localhost:3001/${searchParams["redirect"] ?? ""}`;
         },
         onError: () => {
           setError(true);

@@ -1,14 +1,16 @@
-import { createFileRoute } from '@tanstack/react-router'
-import { useEffect } from 'react'
-import { authClient } from '../lib/auth-client'
+import { createFileRoute } from "@tanstack/react-router";
+import { useEffect } from "react";
+import { authClient } from "../lib/auth-client";
 
-export const Route = createFileRoute('/signout')({
+export const Route = createFileRoute("/signout")({
   component: RouteComponent,
-  beforeLoad: async () => {
-    await authClient.signOut()
-  }
-})
+  beforeLoad: async ({context}) => {
+    if (context?.data?.session) {
+      await authClient.signOut();
+    }
+  },
+});
 
 function RouteComponent() {
-  return <div>Hello "/signout"!</div>
+  return <div>Hello "/signout"!</div>;
 }

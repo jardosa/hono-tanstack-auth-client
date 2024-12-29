@@ -6,8 +6,8 @@ export const authClient = createAuthClient({
     enabled: true,
   },
   plugins: [twoFactorClient({
-    onTwoFactorRedirect() {
-      window.location.href = "sessions/two-factor/app"
-    }
+    // onTwoFactorRedirect() {
+    //   window.location.href = "sessions/two-factor/app"
+    // }
   })],
 });

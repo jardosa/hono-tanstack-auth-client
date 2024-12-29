@@ -1,10 +1,32 @@
-import * as React from 'react'
-import { Link, Outlet, createRootRoute } from '@tanstack/react-router'
-import { TanStackRouterDevtools } from '@tanstack/router-devtools'
+import * as React from "react";
+import {
+  Link,
+  Outlet,
+  createRootRoute,
+  redirect,
+} from "@tanstack/react-router";
+import { TanStackRouterDevtools } from "@tanstack/router-devtools";
+import { authClient } from "../lib/auth-client";
 
+const EXCLUDED_ROUTES = ["signin", "signout", "two-factor", "signup"];
 export const Route = createRootRoute({
   component: RootComponent,
-})
+  beforeLoad: async ({ location }) => {
+    const session = await authClient.getSession();
+    // CHECK IF user is authenticated before getting access to the routes
+    if (!EXCLUDED_ROUTES.some((route) => location.href.includes(route))) {
+      if (!session.data) {
+        throw redirect({
+          to: "/signin",
+          search: {
+            redirect: location.href,
+          },
+        });
+      }
+    }
+    return session;
+  },
+});
 
 function RootComponent() {
   return (
@@ -13,16 +35,16 @@ function RootComponent() {
         <Link
           to="/"
           activeProps={{
-            className: 'font-bold',
+            className: "font-bold",
           }}
           activeOptions={{ exact: true }}
         >
           Home
-        </Link>{' '}
+        </Link>{" "}
         <Link
           to="/about"
           activeProps={{
-            className: 'font-bold',
+            className: "font-bold",
           }}
         >
           About
@@ -32,5 +54,5 @@ function RootComponent() {
       <Outlet />
       <TanStackRouterDevtools position="bottom-right" />
     </>
-  )
+  );
 }
