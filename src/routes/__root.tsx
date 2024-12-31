@@ -7,8 +7,17 @@ import {
 } from "@tanstack/react-router";
 import { TanStackRouterDevtools } from "@tanstack/router-devtools";
 import { authClient } from "../lib/auth-client";
+import { routeTree } from "../routeTree.gen";
 
-const EXCLUDED_ROUTES = ["signin", "signout", "two-factor", "signup"];
+const EXCLUDED_ROUTES = [
+  "signin",
+  "signout",
+  "two-factor",
+  "signup",
+  'forgot-password',
+  'reset-password',
+  'verify-otp',
+];
 export const Route = createRootRoute({
   component: RootComponent,
   beforeLoad: async ({ location }) => {

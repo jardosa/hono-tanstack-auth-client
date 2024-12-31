@@ -11,15 +11,24 @@
 // Import Routes
 
 import { Route as rootRoute } from './routes/__root'
+import { Route as VerifyOtpImport } from './routes/verify-otp'
 import { Route as SignupImport } from './routes/signup'
 import { Route as SignoutImport } from './routes/signout'
 import { Route as SigninImport } from './routes/signin'
+import { Route as ResetPasswordImport } from './routes/reset-password'
+import { Route as ForgotPasswordImport } from './routes/forgot-password'
 import { Route as AboutImport } from './routes/about'
 import { Route as IndexImport } from './routes/index'
 import { Route as SessionsTwoFactorAppImport } from './routes/sessions/two-factor/app'
 import { Route as SettingsSecurityTwoFactorIndexImport } from './routes/settings/security/two-factor/index'
 
 // Create/Update Routes
+
+const VerifyOtpRoute = VerifyOtpImport.update({
+  id: '/verify-otp',
+  path: '/verify-otp',
+  getParentRoute: () => rootRoute,
+} as any)
 
 const SignupRoute = SignupImport.update({
   id: '/signup',
@@ -36,6 +45,18 @@ const SignoutRoute = SignoutImport.update({
 const SigninRoute = SigninImport.update({
   id: '/signin',
   path: '/signin',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const ResetPasswordRoute = ResetPasswordImport.update({
+  id: '/reset-password',
+  path: '/reset-password',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const ForgotPasswordRoute = ForgotPasswordImport.update({
+  id: '/forgot-password',
+  path: '/forgot-password',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -82,6 +103,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AboutImport
       parentRoute: typeof rootRoute
     }
+    '/forgot-password': {
+      id: '/forgot-password'
+      path: '/forgot-password'
+      fullPath: '/forgot-password'
+      preLoaderRoute: typeof ForgotPasswordImport
+      parentRoute: typeof rootRoute
+    }
+    '/reset-password': {
+      id: '/reset-password'
+      path: '/reset-password'
+      fullPath: '/reset-password'
+      preLoaderRoute: typeof ResetPasswordImport
+      parentRoute: typeof rootRoute
+    }
     '/signin': {
       id: '/signin'
       path: '/signin'
@@ -101,6 +136,13 @@ declare module '@tanstack/react-router' {
       path: '/signup'
       fullPath: '/signup'
       preLoaderRoute: typeof SignupImport
+      parentRoute: typeof rootRoute
+    }
+    '/verify-otp': {
+      id: '/verify-otp'
+      path: '/verify-otp'
+      fullPath: '/verify-otp'
+      preLoaderRoute: typeof VerifyOtpImport
       parentRoute: typeof rootRoute
     }
     '/sessions/two-factor/app': {
@@ -125,9 +167,12 @@ declare module '@tanstack/react-router' {
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/forgot-password': typeof ForgotPasswordRoute
+  '/reset-password': typeof ResetPasswordRoute
   '/signin': typeof SigninRoute
   '/signout': typeof SignoutRoute
   '/signup': typeof SignupRoute
+  '/verify-otp': typeof VerifyOtpRoute
   '/sessions/two-factor/app': typeof SessionsTwoFactorAppRoute
   '/settings/security/two-factor': typeof SettingsSecurityTwoFactorIndexRoute
 }
@@ -135,9 +180,12 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/forgot-password': typeof ForgotPasswordRoute
+  '/reset-password': typeof ResetPasswordRoute
   '/signin': typeof SigninRoute
   '/signout': typeof SignoutRoute
   '/signup': typeof SignupRoute
+  '/verify-otp': typeof VerifyOtpRoute
   '/sessions/two-factor/app': typeof SessionsTwoFactorAppRoute
   '/settings/security/two-factor': typeof SettingsSecurityTwoFactorIndexRoute
 }
@@ -146,9 +194,12 @@ export interface FileRoutesById {
   __root__: typeof rootRoute
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/forgot-password': typeof ForgotPasswordRoute
+  '/reset-password': typeof ResetPasswordRoute
   '/signin': typeof SigninRoute
   '/signout': typeof SignoutRoute
   '/signup': typeof SignupRoute
+  '/verify-otp': typeof VerifyOtpRoute
   '/sessions/two-factor/app': typeof SessionsTwoFactorAppRoute
   '/settings/security/two-factor/': typeof SettingsSecurityTwoFactorIndexRoute
 }
@@ -158,27 +209,36 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/about'
+    | '/forgot-password'
+    | '/reset-password'
     | '/signin'
     | '/signout'
     | '/signup'
+    | '/verify-otp'
     | '/sessions/two-factor/app'
     | '/settings/security/two-factor'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/about'
+    | '/forgot-password'
+    | '/reset-password'
     | '/signin'
     | '/signout'
     | '/signup'
+    | '/verify-otp'
     | '/sessions/two-factor/app'
     | '/settings/security/two-factor'
   id:
     | '__root__'
     | '/'
     | '/about'
+    | '/forgot-password'
+    | '/reset-password'
     | '/signin'
     | '/signout'
     | '/signup'
+    | '/verify-otp'
     | '/sessions/two-factor/app'
     | '/settings/security/two-factor/'
   fileRoutesById: FileRoutesById
@@ -187,9 +247,12 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
+  ForgotPasswordRoute: typeof ForgotPasswordRoute
+  ResetPasswordRoute: typeof ResetPasswordRoute
   SigninRoute: typeof SigninRoute
   SignoutRoute: typeof SignoutRoute
   SignupRoute: typeof SignupRoute
+  VerifyOtpRoute: typeof VerifyOtpRoute
   SessionsTwoFactorAppRoute: typeof SessionsTwoFactorAppRoute
   SettingsSecurityTwoFactorIndexRoute: typeof SettingsSecurityTwoFactorIndexRoute
 }
@@ -197,9 +260,12 @@ export interface RootRouteChildren {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
+  ForgotPasswordRoute: ForgotPasswordRoute,
+  ResetPasswordRoute: ResetPasswordRoute,
   SigninRoute: SigninRoute,
   SignoutRoute: SignoutRoute,
   SignupRoute: SignupRoute,
+  VerifyOtpRoute: VerifyOtpRoute,
   SessionsTwoFactorAppRoute: SessionsTwoFactorAppRoute,
   SettingsSecurityTwoFactorIndexRoute: SettingsSecurityTwoFactorIndexRoute,
 }
@@ -216,9 +282,12 @@ export const routeTree = rootRoute
       "children": [
         "/",
         "/about",
+        "/forgot-password",
+        "/reset-password",
         "/signin",
         "/signout",
         "/signup",
+        "/verify-otp",
         "/sessions/two-factor/app",
         "/settings/security/two-factor/"
       ]
@@ -229,6 +298,12 @@ export const routeTree = rootRoute
     "/about": {
       "filePath": "about.tsx"
     },
+    "/forgot-password": {
+      "filePath": "forgot-password.tsx"
+    },
+    "/reset-password": {
+      "filePath": "reset-password.tsx"
+    },
     "/signin": {
       "filePath": "signin.tsx"
     },
@@ -237,6 +312,9 @@ export const routeTree = rootRoute
     },
     "/signup": {
       "filePath": "signup.tsx"
+    },
+    "/verify-otp": {
+      "filePath": "verify-otp.tsx"
     },
     "/sessions/two-factor/app": {
       "filePath": "sessions/two-factor/app.tsx"
