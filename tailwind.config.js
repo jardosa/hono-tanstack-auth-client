@@ -8,6 +8,10 @@ export default {
     extend: {},
   },
   plugins: [
+    require('@tailwindcss/typography'),
     require('daisyui')
   ],
+  daisyui: {
+    themes: ['coffee', 'autumn', 'winter']
+  }
 }
