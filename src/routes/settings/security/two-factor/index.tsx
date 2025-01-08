@@ -31,10 +31,10 @@ function RouteComponent() {
     <div>
       <div>
         <input type="password" onChange={(e) => setPassword(e.target.value)} />
-        <button onClick={enable2fa}>Enable Two Factor Auth</button>
+        <button className='btn' onClick={enable2fa}>Enable Two Factor Auth</button>
       </div>
 
-      <QRCode value={totpURI} />
+      {totpURI ? <QRCode value={totpURI} /> : null}
 
       <div>
         <div>Verify Code</div>

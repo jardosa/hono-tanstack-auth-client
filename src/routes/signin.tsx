@@ -1,6 +1,7 @@
 import { createFileRoute, useNavigate, useSearch } from "@tanstack/react-router";
 import { useState } from "react";
 import { authClient } from "../lib/auth-client";
+import { signInWithGoogle } from "../lib/signInProviders";
 
 export const Route = createFileRoute("/signin")({
   component: RouteComponent,
@@ -47,6 +48,7 @@ function RouteComponent() {
       />
 
       <button onClick={signInWithEmail}>Sign In</button>
+      <button onClick={signInWithGoogle}>Sign In With Google</button>
     </div>
   );
 }

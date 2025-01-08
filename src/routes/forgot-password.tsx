@@ -26,9 +26,10 @@ function RouteComponent() {
     })
   }
   return <div>
-    {error && <div> <div>
-      {error}
-    </div>
+    {error && <div>
+      <div>
+        {error}
+      </div>
       <button onClick={() => setError('')}>Clear Error</button>
     </div>
     }
