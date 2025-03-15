@@ -19,6 +19,7 @@ import { Route as ResetPasswordImport } from './routes/reset-password'
 import { Route as ForgotPasswordImport } from './routes/forgot-password'
 import { Route as AboutImport } from './routes/about'
 import { Route as IndexImport } from './routes/index'
+import { Route as LeadsIndexImport } from './routes/leads/index'
 import { Route as SessionsTwoFactorAppImport } from './routes/sessions/two-factor/app'
 import { Route as SettingsSecurityTwoFactorIndexImport } from './routes/settings/security/two-factor/index'
 
@@ -69,6 +70,12 @@ const AboutRoute = AboutImport.update({
 const IndexRoute = IndexImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const LeadsIndexRoute = LeadsIndexImport.update({
+  id: '/leads/',
+  path: '/leads/',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -145,6 +152,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof VerifyOtpImport
       parentRoute: typeof rootRoute
     }
+    '/leads/': {
+      id: '/leads/'
+      path: '/leads'
+      fullPath: '/leads'
+      preLoaderRoute: typeof LeadsIndexImport
+      parentRoute: typeof rootRoute
+    }
     '/sessions/two-factor/app': {
       id: '/sessions/two-factor/app'
       path: '/sessions/two-factor/app'
@@ -173,6 +187,7 @@ export interface FileRoutesByFullPath {
   '/signout': typeof SignoutRoute
   '/signup': typeof SignupRoute
   '/verify-otp': typeof VerifyOtpRoute
+  '/leads': typeof LeadsIndexRoute
   '/sessions/two-factor/app': typeof SessionsTwoFactorAppRoute
   '/settings/security/two-factor': typeof SettingsSecurityTwoFactorIndexRoute
 }
@@ -186,6 +201,7 @@ export interface FileRoutesByTo {
   '/signout': typeof SignoutRoute
   '/signup': typeof SignupRoute
   '/verify-otp': typeof VerifyOtpRoute
+  '/leads': typeof LeadsIndexRoute
   '/sessions/two-factor/app': typeof SessionsTwoFactorAppRoute
   '/settings/security/two-factor': typeof SettingsSecurityTwoFactorIndexRoute
 }
@@ -200,6 +216,7 @@ export interface FileRoutesById {
   '/signout': typeof SignoutRoute
   '/signup': typeof SignupRoute
   '/verify-otp': typeof VerifyOtpRoute
+  '/leads/': typeof LeadsIndexRoute
   '/sessions/two-factor/app': typeof SessionsTwoFactorAppRoute
   '/settings/security/two-factor/': typeof SettingsSecurityTwoFactorIndexRoute
 }
@@ -215,6 +232,7 @@ export interface FileRouteTypes {
     | '/signout'
     | '/signup'
     | '/verify-otp'
+    | '/leads'
     | '/sessions/two-factor/app'
     | '/settings/security/two-factor'
   fileRoutesByTo: FileRoutesByTo
@@ -227,6 +245,7 @@ export interface FileRouteTypes {
     | '/signout'
     | '/signup'
     | '/verify-otp'
+    | '/leads'
     | '/sessions/two-factor/app'
     | '/settings/security/two-factor'
   id:
@@ -239,6 +258,7 @@ export interface FileRouteTypes {
     | '/signout'
     | '/signup'
     | '/verify-otp'
+    | '/leads/'
     | '/sessions/two-factor/app'
     | '/settings/security/two-factor/'
   fileRoutesById: FileRoutesById
@@ -253,6 +273,7 @@ export interface RootRouteChildren {
   SignoutRoute: typeof SignoutRoute
   SignupRoute: typeof SignupRoute
   VerifyOtpRoute: typeof VerifyOtpRoute
+  LeadsIndexRoute: typeof LeadsIndexRoute
   SessionsTwoFactorAppRoute: typeof SessionsTwoFactorAppRoute
   SettingsSecurityTwoFactorIndexRoute: typeof SettingsSecurityTwoFactorIndexRoute
 }
@@ -266,6 +287,7 @@ const rootRouteChildren: RootRouteChildren = {
   SignoutRoute: SignoutRoute,
   SignupRoute: SignupRoute,
   VerifyOtpRoute: VerifyOtpRoute,
+  LeadsIndexRoute: LeadsIndexRoute,
   SessionsTwoFactorAppRoute: SessionsTwoFactorAppRoute,
   SettingsSecurityTwoFactorIndexRoute: SettingsSecurityTwoFactorIndexRoute,
 }
@@ -288,6 +310,7 @@ export const routeTree = rootRoute
         "/signout",
         "/signup",
         "/verify-otp",
+        "/leads/",
         "/sessions/two-factor/app",
         "/settings/security/two-factor/"
       ]
@@ -315,6 +338,9 @@ export const routeTree = rootRoute
     },
     "/verify-otp": {
       "filePath": "verify-otp.tsx"
+    },
+    "/leads/": {
+      "filePath": "leads/index.tsx"
     },
     "/sessions/two-factor/app": {
       "filePath": "sessions/two-factor/app.tsx"
